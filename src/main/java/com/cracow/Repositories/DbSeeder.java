@@ -21,14 +21,23 @@ public class DbSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Site strona1 = new Site(
-                "First",
+                "a",
                 "www.google.pl",
                 Arrays.asList(
                         "GOOGLE", "INNYTAG"
                 )
         );
 
-        this.siteRepository.save(strona1);
+        Site strona2 = new Site(
+                "b",
+                "www.redtube.pl",
+                Arrays.asList(
+                        "porn", "hot"
+                )
+        );
+
+        //this.siteRepository.save(strona1);
+        //this.siteRepository.save(strona2);
 
     }
 }

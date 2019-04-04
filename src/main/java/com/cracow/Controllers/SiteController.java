@@ -1,15 +1,7 @@
 package com.cracow.Controllers;
-
 import com.cracow.Entities.Site;
-import com.cracow.Repositories.SiteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.cracow.Services.SiteService;
+import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 
@@ -17,23 +9,36 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class SiteController {
 
-    private SiteRepository siteRepository;
+    private SiteService siteService;
 
-    public SiteController(SiteRepository siteRepository) {
-        this.siteRepository=siteRepository;
+    public SiteController(SiteService siteService) {
+        this.siteService = siteService;
 
     }
 
     @GetMapping("/getall")
     public Iterable<Site> getAll()
     {
-        return siteRepository.findAll();
+        return siteService.getAllSites();
     }
 
-    /*@GetMapping("/getbyid")
-    public Optional<Site> getById(@RequestParam Long id)
+    @GetMapping
+    public Optional<Site> getSideById(@RequestParam String id)
     {
-        return siteService.findById(id);
-    }*/
+        return siteService.getSiteById(id);
+    }
+
+    @DeleteMapping
+    public void deleteById(@RequestParam String id)
+    {
+        siteService.deleteById(id);
+    }
+
+    @PostMapping("/add")
+    public Site saveSite(@RequestBody Site site)
+    {
+        return siteService.saveSite(site);
+    }
+
 }
 

@@ -1,6 +1,4 @@
 package com.cracow.Entities;
-
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,7 +9,8 @@ import java.util.List;
 public class Site {
 
     @Id
-    private String Id;
+    private String id;
+
     private String name;
     private List<String> tags;
 
@@ -19,17 +18,17 @@ public class Site {
     }
 
     public Site(String id, String name, List<String> tags) {
-        Id = id;
+        this.id = id;
         this.name = name;
         this.tags = tags;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -47,6 +46,5 @@ public class Site {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
-
 
 }
