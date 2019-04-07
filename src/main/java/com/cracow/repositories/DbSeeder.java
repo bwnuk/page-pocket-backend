@@ -1,6 +1,6 @@
-package com.cracow.Repositories;
+package com.cracow.repositories;
 
-import com.cracow.Entities.Site;
+import com.cracow.entities.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

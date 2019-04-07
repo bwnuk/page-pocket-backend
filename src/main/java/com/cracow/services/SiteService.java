@@ -1,6 +1,6 @@
-package com.cracow.Services;
-import com.cracow.Entities.Site;
-import com.cracow.Repositories.SiteRepository;
+package com.cracow.services;
+import com.cracow.entities.Site;
+import com.cracow.repositories.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;

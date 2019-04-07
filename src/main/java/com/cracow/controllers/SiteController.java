@@ -1,6 +1,6 @@
-package com.cracow.Controllers;
-import com.cracow.Entities.Site;
-import com.cracow.Services.SiteService;
+package com.cracow.controllers;
+import com.cracow.entities.Site;
+import com.cracow.services.SiteService;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
