@@ -6,16 +6,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Document
-public class Bookmarks {
+public class Bookmark {
 
     @Id
     private String id;
-    private List<String> link;
+    private String link;
 
-    public Bookmarks() {
+    public Bookmark() {
     }
 
-    public Bookmarks(String id, List<String> link) {
+    public Bookmark(String id, String link) {
         this.id = id;
         this.link = link;
     }
@@ -28,11 +28,11 @@ public class Bookmarks {
         this.id = id;
     }
 
-    public List<String> getLink() {
+    public String getLink() {
         return link;
     }
 
-    public void setLink(List<String> link) {
+    public void setLink(String link) {
         this.link = link;
     }
 }
