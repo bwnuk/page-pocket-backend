@@ -1,31 +1,39 @@
 package com.cracow.entities;
+import com.cracow.dto.UserNewDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
-@Document
-public class User {
+@Entity
+public class UserData implements Serializable {
 
     @Id
+    @GeneratedValue
     private String id;
 
     private String firstName;
     private String lastName;
     private String mail;
     private String password;
-    private List<Tag> tag;
+    private Map<String,List<String>> bookmarksListMap;
 
-    public User() {
+
+    public UserData() {
     }
 
-    public User(String id, String firstName, String lastName, String mail, String password, List<Tag> tag) {
+    public UserData(String id, String firstName, String lastName, String mail, String password, Map<String, List<String>> bookmarksListMap) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.password = password;
-        this.tag = tag;
+        this.bookmarksListMap = bookmarksListMap;
     }
 
     public String getId() {
@@ -68,11 +76,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Tag> getTag() {
-        return tag;
+    public Map<String, List<String>> getBookmarksListMap() {
+        return bookmarksListMap;
     }
 
-    public void setTag(List<Tag> tag) {
-        this.tag = tag;
+    public void setBookmarksListMap(Map<String, List<String>> bookmarksListMap) {
+        this.bookmarksListMap = bookmarksListMap;
     }
+
 }

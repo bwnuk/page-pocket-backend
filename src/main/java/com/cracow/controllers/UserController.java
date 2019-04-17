@@ -1,5 +1,5 @@
 package com.cracow.controllers;
-import com.cracow.entities.User;
+import com.cracow.entities.UserData;
 import com.cracow.services.UserService;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
@@ -11,19 +11,20 @@ public class UserController {
 
     private UserService userService;
 
+
     public UserController(UserService userService) {
         this.userService = userService;
 
     }
 
     @GetMapping("/getall")
-    public Iterable<User> getAll()
+    public Iterable<UserData> getAll()
     {
         return userService.getAllUsers();
     }
 
     @GetMapping
-    public Optional<User> getSideById(@RequestParam String id)
+    public Optional<UserData> getSideById(@RequestParam String id)
     {
         return userService.getUserById(id);
     }
@@ -35,9 +36,9 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public User saveSite(@RequestBody User user)
+    public UserData saveSite(@RequestBody UserData userData)
     {
-        return userService.saveUser(user);
+        return userService.saveUser(userData);
     }
 
 }

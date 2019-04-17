@@ -1,13 +1,16 @@
 package com.cracow.repositories;
 
 import com.cracow.entities.Bookmarks;
-import com.cracow.entities.Tag;
-import com.cracow.entities.User;
+import com.cracow.entities.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @Component
 public class DbSeeder implements CommandLineRunner {
@@ -22,43 +25,31 @@ public class DbSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        User user1 = new User(
-                "ID1",
+        UserData user1 = new UserData("1L",
                 "Jan",
                 "Kowalski",
-                "jkowalski@gmail.com",
                 "pass1",
-                        Arrays.asList(
-                        new Tag(
-                        "TAGID1",
-                        Arrays.asList(
-                                new Bookmarks("BKID1",Arrays.asList("www.onet.pl","www.gmail.com")),
-                                new Bookmarks("BKID2",Arrays.asList("www.facebook.pl","www.nk.pl"))
-                        ))));
+                "jkowalski@gmail.com",
+                new HashMap<String, List<String>>() {
+                    {
+                        put("home", Arrays.asList("id1","id2"));
+                    }
+                });
 
-        User user2 = new User(
-                "ID2",
+        UserData user2 = new UserData("2L",
                 "Adam",
                 "Mickiewicz",
-                "mail@gmail.com",
                 "pass2",
-                Arrays.asList(
-                        new Tag(
-                                "TAGID2",
-                                Arrays.asList(
-                                        new Bookmarks("BKID3",Arrays.asList("www.youtube.pl","www.wfmii.pl","www.pudelek.pl")),
-                                        new Bookmarks("BKID4", Arrays.asList("www.spotify.com"))
-                                )
-                        )
-                )
-
-        );
+                "amickiewicz@gmail.com",
+                new HashMap<String, List<String>>() {
+                    {
+                        put("home", Arrays.asList("id3","id4"));
+                    }
+                });
 
 
-
-
-        this.userRepository.save(user1);
-        this.userRepository.save(user2);
+                this.userRepository.save(user1);
+                 this.userRepository.save(user2);
 
     }
 }
