@@ -1,30 +1,37 @@
 package com.cracow.controllers;
-import com.cracow.entities.UserData;
+import com.cracow.dto.UserDto;
+import com.cracow.entities.User;
 import com.cracow.services.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-
-    }
 
     @GetMapping("/getall")
-    public Iterable<UserData> getAll()
+    public ResponseEntity<Iterable<User>> getAll()
     {
-        return userService.getAllUsers();
+        Iterable<User> result = userService.getAllUsers();
+        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
-    public Optional<UserData> getSideById(@RequestParam String id)
+    public Optional<User> getSideById(@RequestParam String id)
     {
         return userService.getUserById(id);
     }
@@ -35,10 +42,35 @@ public class UserController {
         userService.deleteById(id);
     }
 
-    @PostMapping("/add")
-    public UserData saveSite(@RequestBody UserData userData)
+    @PostMapping("/register")
+    public ResponseEntity<Void> saveUser(@RequestBody UserDto user)
     {
-        return userService.saveUser(userData);
+        try {
+            User userE = convertToEntity(user);
+            if (userService.saveUser(userE))
+            return new ResponseEntity<Void>(HttpStatus.CREATED);
+            else
+                return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+
+
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+
+    }
+
+
+    private UserDto userConvertToDTO(User user)
+    {
+        UserDto newUser = modelMapper.map(user, UserDto.class);
+        return newUser;
+    }
+
+    private User convertToEntity(UserDto userDto) throws ParseException {
+        User user = modelMapper.map(userDto, User.class);
+        return user;
     }
 
 }

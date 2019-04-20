@@ -1,20 +1,15 @@
 package com.cracow.entities;
-import com.cracow.dto.UserNewDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-@Entity
-public class UserData implements Serializable {
+@Document
+public class User implements Serializable {
 
     @Id
-    @GeneratedValue
     private String id;
 
     private String firstName;
@@ -24,10 +19,10 @@ public class UserData implements Serializable {
     private Map<String,List<String>> bookmarksListMap;
 
 
-    public UserData() {
+    public User() {
     }
 
-    public UserData(String id, String firstName, String lastName, String mail, String password, Map<String, List<String>> bookmarksListMap) {
+    public User(String id, String firstName, String lastName, String mail, String password, Map<String, List<String>> bookmarksListMap) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

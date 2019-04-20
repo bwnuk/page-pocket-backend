@@ -1,7 +1,6 @@
 package com.cracow.repositories;
 
-import com.cracow.entities.Bookmarks;
-import com.cracow.entities.UserData;
+import com.cracow.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 @Component
 public class DbSeeder implements CommandLineRunner {
@@ -25,7 +22,7 @@ public class DbSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        UserData user1 = new UserData("1L",
+        User user1 = new User("1L",
                 "Jan",
                 "Kowalski",
                 "pass1",
@@ -36,7 +33,7 @@ public class DbSeeder implements CommandLineRunner {
                     }
                 });
 
-        UserData user2 = new UserData("2L",
+        User user2 = new User("2L",
                 "Adam",
                 "Mickiewicz",
                 "pass2",
@@ -48,8 +45,8 @@ public class DbSeeder implements CommandLineRunner {
                 });
 
 
-                this.userRepository.save(user1);
-                 this.userRepository.save(user2);
+                //this.userRepository.save(user1);
+                 //this.userRepository.save(user2);
 
     }
 }

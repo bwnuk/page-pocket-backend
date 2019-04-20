@@ -1,5 +1,5 @@
 package com.cracow.services;
-import com.cracow.entities.UserData;
+import com.cracow.entities.User;
 import com.cracow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Iterable<UserData>getAllUsers(){
+    public Iterable<User>getAllUsers(){
         return userRepository.findAll();
     }
 
-    public Optional<UserData> getUserById(String id)
+
+    public Optional<User> getUserById(String id)
     {
         return userRepository.findById(id);
     }
@@ -30,8 +31,13 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserData saveUser(UserData userData)
+    public boolean saveUser(User userData)
     {
-        return userRepository.save(userData);
+        for (User user : getAllUsers())
+        {
+            if (userData.getMail().equals(user.getMail())) return false;
+        }
+        userRepository.save(userData);
+        return true;
     }
 }
