@@ -40,4 +40,25 @@ public class UserService {
         userRepository.save(userData);
         return true;
     }
+
+    public boolean login(String email, String password)
+    {
+        for (User user : getAllUsers())
+        {
+            if (email.equals(user.getMail()))
+                if (password.equals(user.getPassword()))
+                    return true;
+        }
+        return false;
+    }
+    public User findByEmail(String email)
+    {
+        for (User user : getAllUsers())
+        {
+            if (email.equals(user.getMail())) return user;
+        }
+        return null;
+
+    }
+
 }

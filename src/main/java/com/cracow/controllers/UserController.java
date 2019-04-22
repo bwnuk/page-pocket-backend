@@ -1,13 +1,18 @@
 package com.cracow.controllers;
 import com.cracow.dto.UserDto;
 import com.cracow.entities.User;
+import com.cracow.repositories.UserRepository;
 import com.cracow.services.UserService;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.Optional;
 
@@ -27,20 +32,28 @@ public class UserController {
     public ResponseEntity<Iterable<User>> getAll()
     {
         Iterable<User> result = userService.getAllUsers();
-        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping
-    public Optional<User> getSideById(@RequestParam String id)
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password, HttpServletRequest request, HttpSession session)
     {
-        return userService.getUserById(id);
+        session.invalidate();
+        if (userService.login(email, password)) {
+            HttpSession newSession = request.getSession(); // create session
+            return new ResponseEntity<String>(newSession.getId(),HttpStatus.OK);
+        }
+        else return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping
-    public void deleteById(@RequestParam String id)
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpSession session)
     {
-        userService.deleteById(id);
+        System.out.println(session.getId());
+        session.invalidate();
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<Void> saveUser(@RequestBody UserDto user)
