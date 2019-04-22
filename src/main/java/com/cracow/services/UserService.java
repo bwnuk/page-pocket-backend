@@ -8,13 +8,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-
     @Autowired
-    public UserService(UserRepository userRepository)
-    {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     public Iterable<User>getAllUsers(){
         return userRepository.findAll();
