@@ -29,7 +29,7 @@ public class BookmarksController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping("/pockets")
+    @PostMapping
     public ResponseEntity<BookmarksDTO> saveBookmarks(@RequestBody BookmarkNewDto bookmarkNewDto) {
         try {
             Bookmarks bookE = convertBToEntity(bookmarkNewDto);
