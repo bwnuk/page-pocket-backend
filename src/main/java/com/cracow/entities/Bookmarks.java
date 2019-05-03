@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Entity;
+import java.sql.Blob;
 import java.util.List;
 
 @Document
@@ -17,9 +18,9 @@ public class Bookmarks {
     private String source;
     private List<String> tags;
     private String createdDate;
-    private String blob;
+    private Blob blob;
 
-    public Bookmarks(String id, String tittle, String description, String source, List<String> tags, String createdDate, String blob) {
+    public Bookmarks(String id, String tittle, String description, String source, List<String> tags, String createdDate, Blob blob) {
         this.id = id;
         this.tittle = tittle;
         this.description = description;
@@ -28,6 +29,7 @@ public class Bookmarks {
         this.createdDate = createdDate;
         this.blob = blob;
     }
+
 
     public Bookmarks() {
     }
@@ -80,11 +82,11 @@ public class Bookmarks {
         this.createdDate = createdDate;
     }
 
-    public String getBlob() {
+    public Blob getBlob() {
         return blob;
     }
 
-    public void setBlob(String blob) {
+    public void setBlob(Blob blob) {
         this.blob = blob;
     }
 }

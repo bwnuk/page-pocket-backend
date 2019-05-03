@@ -7,6 +7,8 @@ import com.cracow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class BookmarksService {
 
@@ -23,4 +25,13 @@ public class BookmarksService {
         return true;
     }
 
+    public Optional<Bookmarks> findById(String id)
+    {
+        return bookmarkRepository.findById(id);
+    }
+
+    public void deleteById(String id)
+    {
+        bookmarkRepository.deleteById(id);
+    }
 }
