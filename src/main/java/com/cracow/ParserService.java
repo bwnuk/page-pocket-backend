@@ -19,7 +19,7 @@ import java.sql.SQLException;
 @Service
 public class ParserService {
     private byte[] imageInByte=null;
-   /* private BookmarkRepository bookmarkRepository;
+   /*  private BookmarkRepository bookmarkRepository;
 
     public  ParserService (BookmarkRepository bookmarkRepository){
         this.bookmarkRepository= bookmarkRepository;
