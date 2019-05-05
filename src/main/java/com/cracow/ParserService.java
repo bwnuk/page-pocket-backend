@@ -12,10 +12,27 @@ import java.sql.SQLException;
 @Service
 public class ParserService {
     private byte[] imageInByte=null;
+    /*  private BookmarkRepository bookmarkRepository;
+
+         public  ParserService (BookmarkRepository bookmarkRepository){
+             this.bookmarkRepository= bookmarkRepository;
+         }
+
+         private void parse(String id) {
+             String URL = bookmarkRepository.findById(id).get().getSource();
+             if(URL != null){
+                 try {
+                     parseImg(URL);
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                     throw new RuntimeException();
+                 }
+             }
+         }
 
     private void doIt()throws Exception{
         parseImg("https://wiadomosci.onet.pl/tylko-w-onecie/bitwa-o-lotnisko-w-radomiu-na-pierwszej-linii-czolowi-politycy-pis/cr9vw8z");
-    }
+    }*/
     private void convertByteToImage(byte[] imageInByte) throws IOException {
         // convert byte array back to BufferedImage
         InputStream in = new ByteArrayInputStream(imageInByte);
