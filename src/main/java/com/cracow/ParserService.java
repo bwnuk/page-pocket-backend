@@ -1,7 +1,10 @@
 package com.cracow;
+import com.cracow.entities.Bookmarks;
+import com.cracow.repositories.BookmarkRepository;
 import com.teamdev.jxbrowser.chromium.*;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import com.teamdev.jxbrowser.chromium.swing.internal.LightWeightWidget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,27 +15,19 @@ import java.sql.SQLException;
 @Service
 public class ParserService {
     private byte[] imageInByte=null;
-    /*  private BookmarkRepository bookmarkRepository;
-
-         public  ParserService (BookmarkRepository bookmarkRepository){
-             this.bookmarkRepository= bookmarkRepository;
-         }
-
-         private void parse(String id) {
-             String URL = bookmarkRepository.findById(id).get().getSource();
-             if(URL != null){
-                 try {
-                     parseImg(URL);
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                     throw new RuntimeException();
-                 }
+    @Autowired
+    private BookmarkRepository bookmarkRepository;
+           private void parse(String id) throws Exception {
+               if(bookmarkRepository.findById(id).get()!= null){
+                   Bookmarks bookmarks=bookmarkRepository.findById(id).get();
+                   bookmarks.setBlob(parseImg(bookmarks.getSource()));
+                   bookmarkRepository.deleteById(id);
+                   bookmarkRepository.save(bookmarks);
+               }
+                else {
+                    throw new Exception();
+               }
              }
-         }
-
-    private void doIt()throws Exception{
-        parseImg("https://wiadomosci.onet.pl/tylko-w-onecie/bitwa-o-lotnisko-w-radomiu-na-pierwszej-linii-czolowi-politycy-pis/cr9vw8z");
-    }*/
     private void convertByteToImage(byte[] imageInByte) throws IOException {
         // convert byte array back to BufferedImage
         InputStream in = new ByteArrayInputStream(imageInByte);
@@ -67,10 +62,11 @@ public class ParserService {
         byte[] imageByte=convertBufferedImageToByte(bufferedImage);
         convertByteToImage(imageByte);
     }
-    private Blob parseImg(String URL)  throws Exception {
+    public Blob parseImg(String URL)  throws Exception {
         final int scrollBarSize = 25;
         int viewWidth=0;
         int viewHeight=0;
+
         Browser browser = new Browser(BrowserType.LIGHTWEIGHT);
         BrowserPreferences preferences = browser.getPreferences();
         // preferences.setJavaScriptEnabled(false);
@@ -111,7 +107,7 @@ public class ParserService {
         imageInByte=convertBufferedImageToByte(bufferedImage);
 
         Blob blob = new javax.sql.rowset.serial.SerialBlob(imageInByte);
-        convertBlobToImage(blob);
+       // convertBlobToImage(blob);
         return blob;
     }
 }
