@@ -31,7 +31,7 @@ public class ParserService {
     private void convertByteToImage(byte[] imageInByte) throws IOException {
         // convert byte array back to BufferedImage
         InputStream in = new ByteArrayInputStream(imageInByte);
-        BufferedImage bImageFromConvert = ImageIO.read(in);
+        BufferedImage bImageFromConvert = ImageIO.read(in); 
         ImageIO.write(bImageFromConvert, "jpg", new File("nazwa.jpg"));
     }
     private  BufferedImage convertBlobToBufferImage(Blob blob) throws IOException, SQLException {
