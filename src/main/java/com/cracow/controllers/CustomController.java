@@ -1,4 +1,4 @@
-package com.cracow.web.controller;
+package com.cracow.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,4 +1,4 @@
-package com.cracow;
+package com.cracow.services;
 import com.cracow.entities.Bookmarks;
 import com.cracow.repositories.BookmarkRepository;
 import com.teamdev.jxbrowser.chromium.*;
@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
+
 @Service
 public class ParserService {
     private byte[] imageInByte=null;

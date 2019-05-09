@@ -1,4 +1,4 @@
-package com.cracow.web.exception;
+package com.cracow.exception;
 
 
 public enum ServiceErrorCode {
