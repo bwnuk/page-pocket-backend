@@ -1,4 +1,4 @@
-package com.cracow;
+package com.cracow.utils;
 
 import javax.swing.*;
 import javax.swing.text.Document;

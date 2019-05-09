@@ -1,6 +1,6 @@
-package com.cracow.web.error;
+package com.cracow.error;
 
-import com.cracow.web.exception.ServiceException;
+import com.cracow.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

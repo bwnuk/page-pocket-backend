@@ -1,9 +1,7 @@
-package com.cracow;
+package com.cracow.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
-
-
 
 
 @org.springframework.context.annotation.Configuration

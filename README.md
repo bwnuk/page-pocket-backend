@@ -11,3 +11,12 @@ cd ./page-pocket-backend
 mvn clean install
 mvn spring-boot:run
 ```
+
+##Needed
+
+- mongo 
+```
+sudo apt install mongodb
+sudo service mongodb start
+monog
+```
