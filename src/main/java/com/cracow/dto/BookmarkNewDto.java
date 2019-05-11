@@ -4,17 +4,17 @@ import java.util.List;
 
 public class BookmarkNewDto {
 
-    private String tittle;
+    private String title;
     private String description;
     private String source;
     private List<String> tags;
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
