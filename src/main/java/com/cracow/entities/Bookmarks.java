@@ -13,16 +13,16 @@ public class Bookmarks {
     @Id
     private String id;
 
-    private String tittle;
+    private String title;
     private String description;
     private String source;
     private List<String> tags;
     private String createdDate;
     private Blob blob;
 
-    public Bookmarks(String id, String tittle, String description, String source, List<String> tags, String createdDate, Blob blob) {
+    public Bookmarks(String id, String title, String description, String source, List<String> tags, String createdDate, Blob blob) {
         this.id = id;
-        this.tittle = tittle;
+        this.title = title;
         this.description = description;
         this.source = source;
         this.tags = tags;
@@ -42,12 +42,12 @@ public class Bookmarks {
         this.id = id;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
