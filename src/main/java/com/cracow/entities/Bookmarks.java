@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
 import java.sql.Blob;
 import java.util.List;
 
