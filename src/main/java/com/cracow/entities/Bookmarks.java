@@ -1,5 +1,6 @@
 package com.cracow.entities;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class Bookmarks {
 
     @Id
+    @ApiModelProperty(notes = "database generated bookmark ID")
     private String id;
 
     private String title;

@@ -3,12 +3,12 @@ package com.cracow.controllers;
 import com.cracow.dto.BookmarkBlobDTO;
 import com.cracow.dto.BookmarkNewDto;
 import com.cracow.dto.BookmarksDTO;
-import com.cracow.dto.UserDto;
 import com.cracow.entities.Bookmarks;
-
-import com.cracow.entities.User;
-import com.cracow.repositories.BookmarkRepository;
 import com.cracow.services.BookmarksService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pockets")
+@Api(value="bookmarks", description="operations pertaining to bookmarks")
 public class BookmarksController {
 
     @Autowired
@@ -30,6 +31,7 @@ public class BookmarksController {
     private ModelMapper modelMapper;
 
     @PostMapping
+    @ApiOperation(value="save bookmark", response=ResponseEntity.class)
     public ResponseEntity<BookmarksDTO> saveBookmarks(@RequestBody BookmarkNewDto bookmarkNewDto) {
         try {
             Bookmarks bookE = convertBToEntity(bookmarkNewDto);
@@ -50,6 +52,14 @@ public class BookmarksController {
     }
 
     @GetMapping
+    @ApiOperation(value="get all bookmarks", response=List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved bookmarks list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
     public ResponseEntity<List<BookmarksDTO>> getAll()
     {
         List<BookmarksDTO> result = new ArrayList<>();
@@ -62,6 +72,7 @@ public class BookmarksController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value="find bookmarn by ID", response=BookmarkBlobDTO.class)
     public ResponseEntity<BookmarkBlobDTO> findById(@PathVariable String id)
     {
         BookmarkBlobDTO result = bookmarkBlobConvertToDTO(bookmarksService.findById(id).get());
@@ -75,6 +86,7 @@ public class BookmarksController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value="delete bookmark by ID")
     public ResponseEntity<Void> deleteById(@PathVariable String id)
     {
         if (findById(id) != null) {
