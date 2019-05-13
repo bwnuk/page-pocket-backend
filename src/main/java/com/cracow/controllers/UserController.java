@@ -1,24 +1,26 @@
 package com.cracow.controllers;
+
 import com.cracow.dto.UserDto;
 import com.cracow.entities.User;
-import com.cracow.repositories.UserRepository;
 import com.cracow.services.UserService;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/users")
+@Api(value="users", description="operations pertaining to users")
 public class UserController {
 
     @Autowired
@@ -29,6 +31,15 @@ public class UserController {
 
 
     @GetMapping("/getall")
+    //@RequestMapping(value = "/getall", method= RequestMethod.GET)
+    @ApiOperation(value="get all users", response=Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list of users"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
     public ResponseEntity<Iterable<User>> getAll()
     {
         Iterable<User> result = userService.getAllUsers();
@@ -36,6 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @ApiOperation(value="Log in", response=HttpSession.class)
     public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password, HttpServletRequest request, HttpSession session)
     {
         session.invalidate();
@@ -47,6 +59,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
+    @ApiOperation(value="Log out")
     public ResponseEntity<Void> logout(HttpSession session)
     {
         System.out.println(session.getId());
@@ -56,6 +69,7 @@ public class UserController {
 
 
     @PostMapping("/register")
+    @ApiOperation(value="Register")
     public ResponseEntity<Void> saveUser(@RequestBody UserDto user)
     {
         try {

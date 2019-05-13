@@ -1,8 +1,9 @@
 package com.cracow.entities;
+
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,14 @@ import java.util.Map;
 public class User implements Serializable {
 
     @Id
+    @ApiModelProperty(notes = "database generated user ID")
     private String id;
 
     private String firstName;
     private String lastName;
     private String mail;
     private String password;
+    @ApiModelProperty(notes = "user bookmarks list")
     private Map<String,List<String>> bookmarksListMap;
 
 
