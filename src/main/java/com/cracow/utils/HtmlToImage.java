@@ -8,15 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class HtmlToImage {
-    static class Kit extends HTMLEditorKit {
-        public Document createDefaultDocument() {
-            HTMLDocument doc = (HTMLDocument) super.createDefaultDocument();
-            doc.setTokenThreshold(Integer.MAX_VALUE);
-            doc.setAsynchronousLoadPriority(-1);
-            return doc;
-        }
-    }
-
     public static BufferedImage create(String src, int width, int height) {
         BufferedImage image = null;
         JEditorPane pane = new JEditorPane();
@@ -33,7 +24,16 @@ public abstract class HtmlToImage {
             g.dispose();
         } catch (Exception e) {
             System.out.println(e);
-    }
+        }
         return image;
+    }
+
+    static class Kit extends HTMLEditorKit {
+        public Document createDefaultDocument() {
+            HTMLDocument doc = (HTMLDocument) super.createDefaultDocument();
+            doc.setTokenThreshold(Integer.MAX_VALUE);
+            doc.setAsynchronousLoadPriority(-1);
+            return doc;
+        }
     }
 }
