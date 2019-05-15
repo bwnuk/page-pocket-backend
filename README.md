@@ -17,22 +17,12 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-## Needed
-
-- mongo 
+## Installing
 ```
 sudo apt install mongodb
 sudo service mongodb start
 mongo
 ```
 
-## Swagger
-to see json config info :
-```
-http://localhost:8013/v2/api-docs
-```
+## [Swagger UI](http://localhost:8013/swagger-ui.html)
 
-to enter swagger UI :
-```
-http://localhost:8013/swagger-ui.html
-```
