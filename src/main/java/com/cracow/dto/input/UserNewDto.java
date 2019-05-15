@@ -1,4 +1,4 @@
-package com.cracow.dto.output;
+package com.cracow.dto.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

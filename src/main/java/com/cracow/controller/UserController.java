@@ -1,6 +1,6 @@
 package com.cracow.controller;
 
-import com.cracow.dto.output.UserNewDto;
+import com.cracow.dto.input.UserNewDto;
 import com.cracow.service.UserService;
 import com.cracow.service.security.SecurityService;
 import io.swagger.annotations.Api;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 @Api(value = "Users API")
 @Validated
@@ -48,7 +49,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(
             HttpServletRequest request,
-            @RequestParam String email,
+            @RequestParam @Email String email,
             @RequestParam String password
     ) {
         String sessionId = request.getSession().getId();

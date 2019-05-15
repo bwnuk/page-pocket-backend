@@ -3,15 +3,13 @@ package com.cracow.dto.output;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.sql.Blob;
-
 @ToString
 @Getter
 public class BookmarkBlobDto {
 
-    private final Blob blob;
+    private final byte[] blob;
 
-    public BookmarkBlobDto(Blob blob) {
+    public BookmarkBlobDto(byte[] blob) {
         this.blob = blob;
     }
 }

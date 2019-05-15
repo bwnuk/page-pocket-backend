@@ -1,16 +1,13 @@
 package com.cracow.service.security;
 
-import com.cracow.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -26,12 +23,9 @@ public class SecurityService {
         this.userDetailsService = userDetailsService;
     }
 
-    public String findLoggedInUsername() {
-        Object user = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (user instanceof UserEntity) {
-            return ((UserDetails) user).getUsername();
-        }
-        return null;
+    public String findLoggedInEmail() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
 
     public String autologin(String sessionId, String username, String password) {
@@ -47,11 +41,5 @@ public class SecurityService {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
         return sessionId;
-    }
-
-    private Set<String> getRoles(UserDetails userDetails) {
-        Set<String> roles = new HashSet<>();
-        userDetails.getAuthorities().forEach(authority -> roles.add(authority.getAuthority()));
-        return roles;
     }
 }

@@ -1,6 +1,6 @@
-package com.cracow.service;
+package com.cracow.service.parser;
 
-import com.cracow.entity.BookmarkEntity;
+import com.cracow.error.common.InternalServerErrorProblem;
 import com.cracow.repository.BookmarkRepository;
 import com.teamdev.jxbrowser.chromium.*;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 @Service
 public class ParserService {
@@ -34,13 +33,13 @@ public class ParserService {
         return bi;
     }
 
-    private static void writeBufferedImageToPNG(BufferedImage bufferedImage) throws IOException {
-        ImageIO.write(bufferedImage, "png", new File("nazwa.png"));
-    }
-
-    private static void writeBufferedImageToJPG(BufferedImage bufferedImage) throws IOException {
-        ImageIO.write(bufferedImage, "jpg", new File("nazwa.jpg"));
-    }
+//    private static void writeBufferedImageToPNG(BufferedImage bufferedImage) throws IOException {
+//        ImageIO.write(bufferedImage, "png", new File("nazwa.png"));
+//    }
+//
+//    private static void writeBufferedImageToJPG(BufferedImage bufferedImage) throws IOException {
+//        ImageIO.write(bufferedImage, "jpg", new File("nazwa.jpg"));
+//    }
 
     private static byte[] convertBufferedImageToByte(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -48,36 +47,49 @@ public class ParserService {
         return baos.toByteArray();
     }
 
-    private void parse(String id) throws Exception {
-        if (bookmarkRepository.findById(id).get() != null) {
-            BookmarkEntity bookmarkEntity = bookmarkRepository.findById(id).get();
-            bookmarkEntity.setBlob(parseImg(bookmarkEntity.getSource()));
-            bookmarkRepository.deleteById(id);
-            bookmarkRepository.save(bookmarkEntity);
-        } else {
-            throw new Exception();
+//    private void parse(String id) throws Exception {
+//        if (bookmarkRepository.findById(id).get() != null) {
+//            BookmarkEntity bookmarkEntity = bookmarkRepository.findById(id).get();
+//            bookmarkEntity.setBlob(parseURLToByte(bookmarkEntity.getSource()));
+//            bookmarkRepository.deleteById(id);
+//            bookmarkRepository.save(bookmarkEntity);
+//        } else {
+//            throw new Exception();
+//        }
+//    }
+//
+//    private void convertByteToImage(byte[] imageInByte) throws IOException {
+//        // convert byte array back to BufferedImage
+//        InputStream in = new ByteArrayInputStream(imageInByte);
+//        BufferedImage bImageFromConvert = ImageIO.read(in);
+//        ImageIO.write(bImageFromConvert, "jpg", new File("nazwa.jpg"));
+//    }
+//
+//    private BufferedImage convertBlobToBufferImage(Blob blob) throws IOException, SQLException {
+//        InputStream in = blob.getBinaryStream();
+//        return ImageIO.read(in);
+//    }
+//
+//    private void convertBlobToImage(Blob blob) throws IOException, SQLException {
+//        BufferedImage bufferedImage = convertBlobToBufferImage(blob);
+//        byte[] imageByte = convertBufferedImageToByte(bufferedImage);
+//        convertByteToImage(imageByte);
+//    }
+
+    //TODO Angelika Wątroba
+    //TODO tutaj obsługujemy bład i zwracamy byte[]
+    public byte[] parseToByte(String URL) {
+        try {
+//            return parseURLToByte(URL);
+            return new byte[10];
+        } catch (Exception e) {
+            throw new InternalServerErrorProblem(e.getMessage());
         }
     }
 
-    private void convertByteToImage(byte[] imageInByte) throws IOException {
-        // convert byte array back to BufferedImage
-        InputStream in = new ByteArrayInputStream(imageInByte);
-        BufferedImage bImageFromConvert = ImageIO.read(in);
-        ImageIO.write(bImageFromConvert, "jpg", new File("nazwa.jpg"));
-    }
-
-    private BufferedImage convertBlobToBufferImage(Blob blob) throws IOException, SQLException {
-        InputStream in = blob.getBinaryStream();
-        return ImageIO.read(in);
-    }
-
-    private void convertBlobToImage(Blob blob) throws IOException, SQLException {
-        BufferedImage bufferedImage = convertBlobToBufferImage(blob);
-        byte[] imageByte = convertBufferedImageToByte(bufferedImage);
-        convertByteToImage(imageByte);
-    }
-
-    public Blob parseImg(String URL) throws Exception {
+    //TODO (Alternatywa) Zwrocenie HTML jako String, serwis ma tylko parsować a nie zapisywać jak sama nazwa mówi :)
+    //TODO Angelika Wątroba
+    private byte[] parseURLToByte(String URL) throws Exception {
         final int scrollBarSize = 25;
         int viewWidth = 0;
         int viewHeight = 0;
@@ -121,8 +133,6 @@ public class ParserService {
         //writeImageToPNG(bufferedImage);
         imageInByte = convertBufferedImageToByte(bufferedImage);
 
-        Blob blob = new javax.sql.rowset.serial.SerialBlob(imageInByte);
-        // convertBlobToImage(blob);
-        return blob;
+        return imageInByte;
     }
 }

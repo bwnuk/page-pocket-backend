@@ -1,12 +1,16 @@
 package com.cracow.entity;
 
+import com.cracow.dto.input.BookmarkNewDto;
+import com.cracow.dto.output.BookmarkBlobDto;
+import com.cracow.dto.output.BookmarkDto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Blob;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -21,19 +25,31 @@ public class BookmarkEntity {
     private String description;
     private String source;
     private List<String> tags;
-    private String createdDate;
-    private Blob blob;
+
+    @CreatedDate
+    private Date createdDate;
+    private byte[] blob;
 
     public BookmarkEntity() {
     }
 
-    public BookmarkEntity(String id, String title, String description, String source, List<String> tags, String createdDate, Blob blob) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.source = source;
-        this.tags = tags;
-        this.createdDate = createdDate;
+    public BookmarkEntity(BookmarkNewDto bookmarkNewDto) {
+        this.title = bookmarkNewDto.getTitle();
+        this.description = bookmarkNewDto.getDescription();
+        this.source = bookmarkNewDto.getSource();
+        this.tags = bookmarkNewDto.getTags();
+    }
+
+    public BookmarkEntity(BookmarkNewDto bookmarkNewDto, byte[] blob) {
+        this(bookmarkNewDto);
         this.blob = blob;
+    }
+
+    public BookmarkDto toDto() {
+        return new BookmarkDto(id, title, description, source, tags);
+    }
+
+    public BookmarkBlobDto toBlobDto() {
+        return new BookmarkBlobDto(blob);
     }
 }

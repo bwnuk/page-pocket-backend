@@ -1,11 +1,13 @@
 package com.cracow.entity;
 
+import com.cracow.dto.input.UserNewDto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +29,11 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String id, String firstName, String lastName, String email, String password, Map<String, List<String>> bookmarksListMap) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public UserEntity(UserNewDto userNewDto, String password) {
+        this.firstName = userNewDto.getFirstName();
+        this.lastName = userNewDto.getLastName();
+        this.email = userNewDto.getEmail();
         this.password = password;
-        this.bookmarksListMap = bookmarksListMap;
+        bookmarksListMap = Collections.emptyMap();
     }
 }
