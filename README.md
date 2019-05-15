@@ -36,3 +36,12 @@ to enter swagger UI :
 ```
 http://localhost:8013/swagger-ui.html
 ```
+
+## MongoDB dump
+##### Users password: qq
+```bash
+mongoimport --db Sites --collection bookmarks dump/Sites/bookmarks.metadata.json
+mongoimport --db Sites --collection users dump/Sites/users.metadata.json
+
+```
+
