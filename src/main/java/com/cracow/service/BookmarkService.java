@@ -14,6 +14,8 @@ import com.cracow.service.security.SecurityService;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -28,6 +30,8 @@ public class BookmarkService {
     private final UserService userService;
     private final ParserService parserService;
 
+    private static final int PAGE_SIZE = 10;
+
     public BookmarkService(BookmarkRepository bookmarkRepository, SecurityService securityService, UserService userService, ParserService parserService) {
         this.bookmarkRepository = bookmarkRepository;
         this.securityService = securityService;
@@ -35,20 +39,25 @@ public class BookmarkService {
         this.parserService = parserService;
     }
 
-    public List<BookmarkDto> findAll(Optional<String> tag) {
+    public List<BookmarkDto> findAll(Optional<String> tag, Optional<Integer> page) {
         String email = securityService.findLoggedInEmail();
         UserEntity user = userService.findByEmailOrThrow404(email);
         Map<String, List<String>> bookmarks = user.getBookmarksListMap();
         Collection<List<String>> lists = bookmarks.values();
         List<String> bookmarkIDs = Lists.newArrayList(Iterables.concat(lists));
 
-
         List<BookmarkEntity> bookmarkEntities;
         if (tag.isPresent()) {
             String tagName = tag.get();
             bookmarkEntities = bookmarkRepository.findByTagsInAndIdIn(Lists.newArrayList(tagName), bookmarkIDs);
         } else {
-            bookmarkEntities = Lists.newArrayList(bookmarkRepository.findAllById(bookmarkIDs));
+            if (page.isPresent()) {
+                Pageable pageable = PageRequest.of(page.get(), PAGE_SIZE);
+                bookmarkEntities = Lists.newArrayList(bookmarkRepository.findAllById(bookmarkIDs, pageable));
+            } else {
+                bookmarkEntities = Lists.newArrayList(bookmarkRepository.findAllById(bookmarkIDs));
+            }
+
         }
 
         return bookmarkEntities.stream().map(bookmarkEntity -> bookmarkEntity.toDto()).collect(Collectors.toList());

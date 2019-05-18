@@ -43,8 +43,8 @@ public class BookmarkController {
 
     @PreAuthorize("isFullyAuthenticated()")
     @GetMapping
-    public ResponseEntity<List<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag) {
-        List<BookmarkDto> result = bookmarkService.findAll(tag);
+    public ResponseEntity<List<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag, @RequestParam(required = false) Optional<Integer> page) {
+        List<BookmarkDto> result = bookmarkService.findAll(tag, page);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

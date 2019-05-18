@@ -1,6 +1,7 @@
 package com.cracow.repository;
 
 import com.cracow.entity.BookmarkEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ public interface BookmarkRepository extends MongoRepository<BookmarkEntity, Stri
     Optional<BookmarkEntity> findByTitle(String title);
 
     List<BookmarkEntity> findByTagsInAndIdIn(List<String> tags, List<String> id);
+
+    Iterable<BookmarkEntity> findAllById(List<String> tags, Pageable page);
 }
