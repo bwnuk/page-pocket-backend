@@ -14,5 +14,5 @@ public interface BookmarkRepository extends MongoRepository<BookmarkEntity, Stri
 
     List<BookmarkEntity> findByTagsInAndIdIn(List<String> tags, List<String> id);
 
-    Iterable<BookmarkEntity> findAllById(List<String> tags, Pageable page);
+    List<BookmarkEntity> findAllById(List<String> tags, Pageable page);
 }
