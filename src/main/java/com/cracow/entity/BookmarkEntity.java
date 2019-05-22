@@ -17,6 +17,8 @@ import java.util.Date;
 import javax.persistence.PrePersist;
 //import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Data
 @Document("bookmarks")
@@ -29,7 +31,7 @@ public class BookmarkEntity {
     private String title;
     private String description;
     private String source;
-    private List<String> tags;
+    private Set<String> tags;
     private String createdDate;
     private byte[] blob;
 

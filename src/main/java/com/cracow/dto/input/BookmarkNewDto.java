@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Set;
 
 @ToString
 @Getter
@@ -22,14 +23,14 @@ public class BookmarkNewDto {
     private final String source;
 
     @NotEmpty
-    private final List<String> tags;
+    private final Set<String> tags;
 
     @JsonCreator
     public BookmarkNewDto(
             @JsonProperty("title") String title,
             @JsonProperty("description") String description,
             @JsonProperty("source") String source,
-            @JsonProperty("tags") List<String> tags) {
+            @JsonProperty("tags") Set<String> tags) {
         this.title = title;
         this.description = description;
         this.source = source;
