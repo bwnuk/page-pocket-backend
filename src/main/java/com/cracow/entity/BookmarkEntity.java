@@ -9,8 +9,10 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Date;
 
-import java.sql.Date;
+import javax.persistence.PrePersist;
+//import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -38,12 +40,19 @@ public class BookmarkEntity {
         this.description = bookmarkNewDto.getDescription();
         this.source = bookmarkNewDto.getSource();
         this.tags = bookmarkNewDto.getTags();
+        this.createdDate = new Date();
     }
 
     public BookmarkEntity(BookmarkNewDto bookmarkNewDto, byte[] blob) {
         this(bookmarkNewDto);
         this.blob = blob;
+        this.createdDate = new Date();
     }
+
+//    @PrePersist
+//    protected void onCreate() {
+//        this.createdDate = new Date();
+//    }
 
     public BookmarkDto toDto() {
         return new BookmarkDto(id, title, description, source, tags);
