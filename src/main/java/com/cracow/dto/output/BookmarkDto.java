@@ -27,7 +27,7 @@ public class BookmarkDto implements Comparable{
         this.createdDate = null;// Czy tak wolno, czy Manio sie wścieknie?
     }
 
-    public BookmarkDto(String id, String title, String description, String source, List<String> tags, String createdDate) {
+    public BookmarkDto(String id, String title, String description, String source, Set<String> tags, String createdDate) {
         this.id = id;
         this.title = title;
         this.description = description;
