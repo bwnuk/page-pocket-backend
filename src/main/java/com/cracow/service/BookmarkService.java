@@ -53,10 +53,6 @@ public class BookmarkService {
 			bookmarkEntities = Lists.newArrayList(bookmarkRepository.findAllById(bookmarkIDs));
 		}
 
-		for(BookmarkEntity be: bookmarkEntities){
-			System.out.println(be.getTitle());
-		}
-
 		return bookmarkEntities.stream().map(bookmarkEntity -> bookmarkEntity.toDto()).collect(Collectors.toCollection(TreeSet::new));
 	}
 

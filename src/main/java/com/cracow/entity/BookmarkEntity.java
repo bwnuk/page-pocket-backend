@@ -35,10 +35,6 @@ public class BookmarkEntity {
     public BookmarkEntity() {
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public BookmarkEntity(BookmarkNewDto bookmarkNewDto) {
         this.title = bookmarkNewDto.getTitle();
         this.description = bookmarkNewDto.getDescription();
