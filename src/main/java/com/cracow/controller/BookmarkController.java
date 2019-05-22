@@ -45,6 +45,10 @@ public class BookmarkController {
     @GetMapping
     public ResponseEntity<List<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag) {
         List<BookmarkDto> result = bookmarkService.findAll(tag);
+//        for (BookmarkDto el: result
+//             ) {
+//            System.out.println("CREATION_DATE :  " + el.getCreatedDate());
+//        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

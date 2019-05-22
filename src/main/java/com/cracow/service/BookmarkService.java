@@ -73,7 +73,7 @@ public class BookmarkService {
         } else {
             bookmarkEntity = new BookmarkEntity(bookmarkNewDto);
         }
-        System.out.printf("bookmark Entity date" + bookmarkEntity.getCreatedDate());
+        //System.out.printf("bookmark Entity date" + bookmarkEntity.getCreatedDate());
         bookmarkRepository.save(bookmarkEntity);
 
 
