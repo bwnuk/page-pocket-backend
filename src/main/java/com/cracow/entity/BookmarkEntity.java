@@ -30,9 +30,6 @@ public class BookmarkEntity {
     private String description;
     private String source;
     private List<String> tags;
-
-//    @CreatedDate
-//    private Date createdDate;
     private String createdDate;
     private byte[] blob;
 
@@ -44,23 +41,15 @@ public class BookmarkEntity {
         this.description = bookmarkNewDto.getDescription();
         this.source = bookmarkNewDto.getSource();
         this.tags = bookmarkNewDto.getTags();
-        //this.createdDate = new Date();
-        //Date date = new Date();
         createdDate = DateFormat.getDateInstance().format(new Date());
-        //createdDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public BookmarkEntity(BookmarkNewDto bookmarkNewDto, byte[] blob) {
         this(bookmarkNewDto);
         this.blob = blob;
         createdDate = DateFormat.getDateInstance().format(new Date());
-        //this.createdDate = new Date();
     }
 
-//    @PrePersist
-//    protected void onCreate() {
-//        this.createdDate = new Date();
-//    }
 
     public BookmarkDto toDto() {
         return new BookmarkDto(id, title, description, source, tags, createdDate);
