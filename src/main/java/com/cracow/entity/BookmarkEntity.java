@@ -10,7 +10,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
+import javax.persistence.PrePersist;
+//import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -25,9 +30,7 @@ public class BookmarkEntity {
     private String description;
     private String source;
     private List<String> tags;
-
-    @CreatedDate
-    private Date createdDate;
+    private String createdDate;
     private byte[] blob;
 
     public BookmarkEntity() {
@@ -38,15 +41,18 @@ public class BookmarkEntity {
         this.description = bookmarkNewDto.getDescription();
         this.source = bookmarkNewDto.getSource();
         this.tags = bookmarkNewDto.getTags();
+        createdDate = DateFormat.getDateInstance().format(new Date());
     }
 
     public BookmarkEntity(BookmarkNewDto bookmarkNewDto, byte[] blob) {
         this(bookmarkNewDto);
         this.blob = blob;
+        createdDate = DateFormat.getDateInstance().format(new Date());
     }
 
+
     public BookmarkDto toDto() {
-        return new BookmarkDto(id, title, description, source, tags);
+        return new BookmarkDto(id, title, description, source, tags, createdDate);
     }
 
     public BookmarkBlobDto toBlobDto() {

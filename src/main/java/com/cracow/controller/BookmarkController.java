@@ -45,6 +45,7 @@ public class BookmarkController {
     @GetMapping
     public ResponseEntity<List<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag) {
         List<BookmarkDto> result = bookmarkService.findAll(tag);
+
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
