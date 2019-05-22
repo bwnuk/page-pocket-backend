@@ -45,6 +45,7 @@ public class BookmarkService {
 
 
 		List<BookmarkEntity> bookmarkEntities;
+
 		if (tag.isPresent()) {
 			String tagName = tag.get();
 			bookmarkEntities = bookmarkRepository.findByTagsInAndIdIn(Lists.newArrayList(tagName), bookmarkIDs);
@@ -52,7 +53,11 @@ public class BookmarkService {
 			bookmarkEntities = Lists.newArrayList(bookmarkRepository.findAllById(bookmarkIDs));
 		}
 
-		return bookmarkEntities.stream().map(bookmarkEntity -> bookmarkEntity.toDto()).collect(Collectors.toSet());
+		for(BookmarkEntity be: bookmarkEntities){
+			System.out.println(be.getTitle());
+		}
+
+		return bookmarkEntities.stream().map(bookmarkEntity -> bookmarkEntity.toDto()).collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	public BookmarkDto saveBookmark(BookmarkNewDto bookmarkNewDto, boolean parse) {
@@ -78,7 +83,7 @@ public class BookmarkService {
 
 
 		tags.forEach(tag -> {
-			Set<String> list = userBookmarkMap.getOrDefault(tag, new HashSet<>());
+			Set<String> list = userBookmarkMap.getOrDefault(tag, new TreeSet<>());
 			list.add(bookmarkEntity.getId());
 			userBookmarkMap.put(tag, list);
 		});

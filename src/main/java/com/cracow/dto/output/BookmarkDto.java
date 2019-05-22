@@ -8,7 +8,7 @@ import java.util.Set;
 
 @ToString
 @Getter
-public class BookmarkDto {
+public class BookmarkDto implements Comparable{
 
     private final String id;
     private final String title;
@@ -22,5 +22,15 @@ public class BookmarkDto {
         this.description = description;
         this.source = source;
         this.tags = tags;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        BookmarkDto other = (BookmarkDto) o;
+        return id.compareTo(other.getId());
     }
 }
