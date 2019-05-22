@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @Document("users")
@@ -23,7 +24,7 @@ public class UserEntity {
     private String lastName;
     private String email;
     private String password;
-    private Map<String, List<String>> bookmarksListMap;
+    private Map<String, Set<String>> bookmarksListMap;
 
 
     public UserEntity() {

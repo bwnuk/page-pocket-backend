@@ -38,8 +38,8 @@ public class BookmarkService {
     public List<BookmarkDto> findAll(Optional<String> tag) {
         String email = securityService.findLoggedInEmail();
         UserEntity user = userService.findByEmailOrThrow404(email);
-        Map<String, List<String>> bookmarks = user.getBookmarksListMap();
-        Collection<List<String>> lists = bookmarks.values();
+        Map<String, Set<String>> bookmarks = user.getBookmarksListMap();
+        Collection<Set<String>> lists = bookmarks.values();
         List<String> bookmarkIDs = Lists.newArrayList(Iterables.concat(lists));
 
 
@@ -59,8 +59,8 @@ public class BookmarkService {
         UserEntity user = userService.findByEmailOrThrow404(email);
 
         String title = bookmarkNewDto.getTitle();
-        List<String> tags = bookmarkNewDto.getTags();
-        Map<String, List<String>> userBookmarkMap = user.getBookmarksListMap();
+        Set<String> tags = bookmarkNewDto.getTags();
+        Map<String, Set<String>> userBookmarkMap = user.getBookmarksListMap();
 
         if (bookmarkRepository.findByTitle(title).isPresent()) {
             throw new ConflictProblem("bookmark", "title", title);
@@ -77,7 +77,7 @@ public class BookmarkService {
 
 
         tags.forEach(tag -> {
-            List<String> list = userBookmarkMap.getOrDefault(tag, new ArrayList<>());
+            Set<String> list = userBookmarkMap.getOrDefault(tag, new HashSet<>());
             list.add(bookmarkEntity.getId());
             userBookmarkMap.put(tag, list);
         });
@@ -121,7 +121,7 @@ public class BookmarkService {
     }
 
     private void throw401IfAccessDenied(UserEntity user, String bookmarkId) {
-        Map<String, List<String>> userBookmark = user.getBookmarksListMap();
+        Map<String, Set<String>> userBookmark = user.getBookmarksListMap();
 
         boolean isAllowed = userBookmark.values().stream().anyMatch(e -> e.contains(bookmarkId));
         if (!isAllowed) {

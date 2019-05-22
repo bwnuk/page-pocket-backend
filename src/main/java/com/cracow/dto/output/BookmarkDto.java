@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Set;
 
 @ToString
 @Getter
@@ -13,9 +14,9 @@ public class BookmarkDto {
     private final String title;
     private final String description;
     private final String source;
-    private final List<String> tags;
+    private final Set<String> tags;
 
-    public BookmarkDto(String id, String title, String description, String source, List<String> tags) {
+    public BookmarkDto(String id, String title, String description, String source, Set<String> tags) {
         this.id = id;
         this.title = title;
         this.description = description;
