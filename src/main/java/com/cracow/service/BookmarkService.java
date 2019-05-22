@@ -35,7 +35,7 @@ public class BookmarkService {
         this.parserService = parserService;
     }
 
-    public List<BookmarkDto> findAll(Optional<String> tag) {
+    public Set<BookmarkDto> findAll(Optional<String> tag) {
         String email = securityService.findLoggedInEmail();
         UserEntity user = userService.findByEmailOrThrow404(email);
         Map<String, Set<String>> bookmarks = user.getBookmarksListMap();
@@ -51,7 +51,7 @@ public class BookmarkService {
             bookmarkEntities = Lists.newArrayList(bookmarkRepository.findAllById(bookmarkIDs));
         }
 
-        return bookmarkEntities.stream().map(bookmarkEntity -> bookmarkEntity.toDto()).collect(Collectors.toList());
+        return bookmarkEntities.stream().map(bookmarkEntity -> bookmarkEntity.toDto()).collect(Collectors.toSet());
     }
 
     public BookmarkDto saveBookmark(BookmarkNewDto bookmarkNewDto, boolean parse) {

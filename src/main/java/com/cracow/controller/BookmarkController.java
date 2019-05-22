@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Api(value = "Bookmarks API")
@@ -43,8 +44,8 @@ public class BookmarkController {
 
     @PreAuthorize("isFullyAuthenticated()")
     @GetMapping
-    public ResponseEntity<List<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag) {
-        List<BookmarkDto> result = bookmarkService.findAll(tag);
+    public ResponseEntity<Set<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag) {
+        Set<BookmarkDto> result = bookmarkService.findAll(tag);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
