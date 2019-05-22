@@ -7,10 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Document("users")
@@ -36,5 +33,11 @@ public class UserEntity {
         this.email = userNewDto.getEmail();
         this.password = password;
         bookmarksListMap = Collections.emptyMap();
+    }
+
+    public void deleteById(String id){
+        for (Map.Entry<String, Set<String>> entry : bookmarksListMap.entrySet()) {
+            entry.getValue().remove(id);
+        }
     }
 }

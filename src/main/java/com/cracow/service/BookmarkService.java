@@ -119,6 +119,8 @@ public class BookmarkService {
 
 		throw401IfAccessDenied(user, id);
 
+		user.deleteById(id);
+
 		bookmarkRepository.deleteById(id);
 	}
 
