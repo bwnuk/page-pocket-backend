@@ -24,7 +24,7 @@ import javax.validation.constraints.Email;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
+    private final java.util.logging.Logger log = java.util.logging.Logger.getLogger(BookmarkController.class.getName());
     private final UserService userService;
     private final SecurityService securityService;
 
@@ -43,6 +43,7 @@ public class UserController {
         userService.registerNewUser(userNewDto);
 
         String result = securityService.autologin(sessionId, userNewDto.getEmail(), userNewDto.getPassword());
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -54,6 +55,7 @@ public class UserController {
     ) {
         String sessionId = request.getSession().getId();
         String result = securityService.autologin(sessionId, email, password);
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -66,6 +68,7 @@ public class UserController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
         }
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
