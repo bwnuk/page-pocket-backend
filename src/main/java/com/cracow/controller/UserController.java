@@ -43,7 +43,7 @@ public class UserController {
         userService.registerNewUser(userNewDto);
 
         String result = securityService.autologin(sessionId, userNewDto.getEmail(), userNewDto.getPassword());
-        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK + " Result: " + result.toString());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -55,7 +55,8 @@ public class UserController {
     ) {
         String sessionId = request.getSession().getId();
         String result = securityService.autologin(sessionId, email, password);
-        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
+
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK + " Result: " + result.toString());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

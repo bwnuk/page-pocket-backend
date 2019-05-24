@@ -44,7 +44,7 @@ public class BookmarkController {
             @RequestBody @Valid BookmarkNewDto bookmarkNewDto,
             @RequestParam(required = false, defaultValue = "false") boolean parse) {
         BookmarkDto result = bookmarkService.saveBookmark(bookmarkNewDto, parse);
-        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.CREATED);
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.CREATED + " Result: " + result.toString());
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
@@ -52,7 +52,7 @@ public class BookmarkController {
     @GetMapping
     public ResponseEntity<Set<BookmarkDto>> findAll(@RequestParam(required = false) Optional<String> tag) {
         Set<BookmarkDto> result = bookmarkService.findAll(tag);
-        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK + " Result: " + result.toString());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -60,7 +60,7 @@ public class BookmarkController {
     @GetMapping("/{id}")
     public ResponseEntity<BookmarkBlobDto> findById(@PathVariable String id) {
         BookmarkBlobDto result = bookmarkService.findById(id);
-        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK + " Result: " + result.toString());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -76,7 +76,7 @@ public class BookmarkController {
     @PostMapping("/{id}")
     public ResponseEntity<BookmarkBlobDto> parseLink(@PathVariable String id) {
         BookmarkBlobDto result = bookmarkService.parseLink(id);
-        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK);
+        log.info("Controller: " + new Object(){}.getClass().getName() + " Request: " + new Object(){}.getClass().getEnclosingMethod().getName() + " Status: " + HttpStatus.OK + " Result: " + result.toString());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
