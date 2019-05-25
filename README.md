@@ -1,6 +1,8 @@
 # Page Pocket backend
 Backend application to Page Pocket project.
-https://travis-ci.com/bwnuk/page-pocket-backend.svg?branch=master
+[![Build Status](https://travis-ci.com/bwnuk/page-pocket-backend.svg?branch=master](https://travis-ci.com/bwnuk/page-pocket-backend)
+
+
 
 ## Documentation
 Server is working at port `8013`
