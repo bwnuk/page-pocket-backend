@@ -14,6 +14,7 @@ import com.cracow.service.security.SecurityService;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class BookmarkService {
+
+	java.util.logging.Logger log = java.util.logging.Logger.getLogger(BookmarkService.class.getName());
+
 
 	private final BookmarkRepository bookmarkRepository;
 	private final SecurityService securityService;
@@ -71,6 +75,10 @@ public class BookmarkService {
 		BookmarkEntity bookmarkEntity;
 		if (parse) {
 			byte[] blob = parserService.parseToByte(bookmarkNewDto.getSource());
+
+			log.info("Service: " + new Object(){}.getClass().getName() + " Request: " +
+					new Object(){}.getClass().getEnclosingMethod().getName() + " Parser: "+ parse + " Blob length: " +blob.length);
+
 			bookmarkEntity = new BookmarkEntity(bookmarkNewDto, blob);
 		} else {
 			bookmarkEntity = new BookmarkEntity(bookmarkNewDto);
