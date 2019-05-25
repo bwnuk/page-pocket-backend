@@ -1,7 +1,8 @@
+
+[![Build Status](https://travis-ci.com/bwnuk/page-pocket-backend.svg?branch=master)](https://travis-ci.com/bwnuk/page-pocket-backend)
 # Page Pocket backend
 Backend application to Page Pocket project.
 
-[![Build Status](https://travis-ci.com/bwnuk/page-pocket-backend.svg?branch=master)](https://travis-ci.com/bwnuk/page-pocket-backend)
 
 
 
