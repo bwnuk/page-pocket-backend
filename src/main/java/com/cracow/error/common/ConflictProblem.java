@@ -18,7 +18,7 @@ public class ConflictProblem extends AbstractThrowableProblem {
                 type,
                 format("%s Conflict", StringUtils.capitalize(resourceName)),
                 CONFLICT,
-                format("Resource % with %s %s already exists", resourceName, resourceFieldName, resourceId),
+                format("Resource %s with %s %s already exists", resourceName, resourceFieldName, resourceId),
                 null,
                 null,
                 ImmutableMap.of(resourceFieldName, resourceId)
