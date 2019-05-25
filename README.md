@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.com/bwnuk/page-pocket-backend.svg?branch=master)](https://travis-ci.com/bwnuk/page-pocket-backend)
+[![Build Status](https://travis-ci.com/bwnuk/page-pocket-backend.svg?branch=master)](https://travis-ci.com/bwnuk/page-pocket-backend)[![Coverage Status](https://coveralls.io/repos/github/bwnuk/page-pocket-backend/badge.svg?branch=master)](https://coveralls.io/github/bwnuk/page-pocket-backend?branch=master)
 # Page Pocket backend
 Backend application to Page Pocket project.
 
