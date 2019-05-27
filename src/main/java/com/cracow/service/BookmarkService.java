@@ -68,9 +68,18 @@ public class BookmarkService {
 		Set<String> tags = bookmarkNewDto.getTags();
 		Map<String, Set<String>> userBookmarkMap = user.getBookmarksListMap();
 
-		if (bookmarkRepository.findByTitle(title).isPresent()) {
-			throw new ConflictProblem("bookmark", "title", title);
+		// sprawdza czy user ma juz zakladke o tym tytule
+		Set<BookmarkDto> result = findAll(Optional.empty());
+		for(BookmarkDto bookmarkDto: result) {
+			BookmarkEntity bookmarkEntity = findByIdOrThrow401(bookmarkDto.getId());
+			if(bookmarkEntity.getTitle().equals(title))
+				throw new ConflictProblem("bookmark", "title", title);
 		}
+
+		// sprawdza dla wszystkich a nie dla usera
+//		if (bookmarkRepository.findByTitle(title).isPresent()) {
+//			throw new ConflictProblem("bookmark", "title", title);
+//		}
 
 		BookmarkEntity bookmarkEntity;
 		if (parse) {
